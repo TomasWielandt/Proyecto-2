@@ -28,30 +28,34 @@ let crearEncuesta = () => {
 let crearRespuesta = () => {
     if (encuestas.length >= 8){
         encuestas.forEach((encuesta, index) => {
-            let opcion = prompt(`${index + 1}. ${encuesta.pregunta}: ${encuesta.opcion1} o ${encuesta.opcion2}`).toLowerCase(); 
-            if (opcion === encuesta.opcion1){
+            let opcion;
+            do{
+                opcion = prompt(`${index + 1}. ${encuesta.pregunta}: ${encuesta.opcion1} o ${encuesta.opcion2}`).toLowerCase(); 
+                if (opcion === encuesta.opcion1){
                 let respuesta = {
                     pregunta: encuesta.pregunta,
                     respuesta: encuesta.opcion1
                 };
                respuestas.push(respuesta);
-            } else if (opcion === encuesta.opcion2){
+                } else if (opcion === encuesta.opcion2){
                 let respuesta = {
                     pregunta: encuesta.pregunta,
                     respuesta: encuesta.opcion2
                 };
                respuestas.push(respuesta);
-            } else {alert("Respuesta no valida")}
-            return opcion;
-        })
+                } else {alert("Respuesta no valida")}
+            } while (opcion !== encuesta.opcion1 && opcion !== encuesta.opcion2);
+                return opcion;
+        });
     } else {console.log("Tiene que haber minimo 8 preguntas para responder la encuesta")}
 };
 
 function resultados() {
+    let resultadosString = "Resultado de la encuesta:\n";
     respuestas.forEach((respuesta, index) => {
-        alert(`Resultado de la encuesta:\n${index + 1}. ${respuesta.pregunta} - ${respuesta.respuesta}`);
-    })
-    
+        resultadosString += `${index + 1}. ${respuesta.pregunta} - ${respuesta.respuesta}\n`;
+    });
+    alert(resultadosString);
 };
 
 
